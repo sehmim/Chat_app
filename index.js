@@ -17,4 +17,15 @@ const io = socket(server);
 // Connect socket with the server
 io.on('connection', (socket)=>{
     console.log("made socket connection");
-})
+
+
+    // Handle Chat event
+    socket.on('chat', (data)=>{
+        io.sockets.emit('chat', data);
+    });
+
+    // Feedback Typing event
+    socket.on('typing', (data)=>{
+        socket.broadcast.emit('typing', data)
+    });
+});
